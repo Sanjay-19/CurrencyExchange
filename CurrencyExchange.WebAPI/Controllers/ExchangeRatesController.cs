@@ -62,7 +62,7 @@ namespace CurrencyExchange.WebAPI.Controllers
                 {
                     Id = _currencyService.GetLatestId(),
                     BaseCurrency = baseCurrency,
-                    Keyword = model.Keyword,
+                    Keyword = model.Keyword.ToUpper(),
                     Value = model.Value
                 };
                 _currencyService.AddExchangeRate(rate);
