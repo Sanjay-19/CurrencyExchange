@@ -8,6 +8,6 @@
         int GetLatestId();
         void AddExchangeRate(ExchangeRate rate);
         void DeleteExchangeRate(int id);
-        void UpdateExchangeRate(int id, string keyword, double value);
+        void UpdateExchangeRate(ExchangeRate rate);
     }
 }

@@ -43,10 +43,10 @@ namespace CurrencyExchange.Core
             _exchangeRates.DeleteOne(filter);
         }
 
-        public void UpdateExchangeRate(int id, string keyword, double value)
+        public void UpdateExchangeRate(ExchangeRate rate)
         {
-            var filter = Builders<ExchangeRate>.Filter.Eq("Id", id);
-            var update = Builders<ExchangeRate>.Update.Set("Keyword", keyword).Set("Value",value);
+            var filter = Builders<ExchangeRate>.Filter.Eq("Id", rate.Id);
+            var update = Builders<ExchangeRate>.Update.Set("Keyword", rate.Keyword).Set("Value",rate.Value);
             _exchangeRates.UpdateOne(filter, update);
         }
     }

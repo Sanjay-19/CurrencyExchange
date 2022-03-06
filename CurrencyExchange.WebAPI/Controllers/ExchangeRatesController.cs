@@ -31,7 +31,7 @@ namespace CurrencyExchange.WebAPI.Controllers
         [Description("Gets currency exchange rate for a specific currency using it's keyword")]
         public IActionResult GetExchangeRateWithKeyword([Required]string keyword)
         {
-            var exchangeRate = _currencyService.GetRate(keyword);
+            var exchangeRate = _currencyService.GetRate(keyword.ToUpper());
             if (exchangeRate == null)
             {
                 throw new AppException($"Exchange rate for {keyword} doesn't exist");
@@ -53,36 +53,40 @@ namespace CurrencyExchange.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([Required]string keyword, [Required] double value)
+        public IActionResult Post(CurrencyModel model)
         {
-            var exchangeRate = _currencyService.GetRate(keyword);
+            var exchangeRate = _currencyService.GetRate(model.Keyword.ToUpper());
             if (exchangeRate == null)
             {
                 ExchangeRate rate = new ExchangeRate()
                 {
                     Id = _currencyService.GetLatestId(),
                     BaseCurrency = baseCurrency,
-                    Keyword = keyword,
-                    Value = value
+                    Keyword = model.Keyword,
+                    Value = model.Value
                 };
                 _currencyService.AddExchangeRate(rate);
 
-                return Ok($"Exchange Rate for {keyword} has been added successfully");
+                return Ok($"Exchange Rate for {model.Keyword} has been added successfully");
             }
-            throw new AppException($"Exchange rate for {keyword} already exists.");
+            throw new AppException($"Exchange rate for {model.Keyword} already exists.");
         }
 
         [HttpPut]
         [Description("Updates keyword & value of exchange rate for a specific currency using it's id")]
-        public IActionResult Put([Required] int id, [Required]string keyword, [Required]double value)
+        public IActionResult Put(CurrencyModel model)
         {
-            var exchangeRate = _currencyService.GetRate(id);
+            var exchangeRate = _currencyService.GetRate(model.Id);
             if (exchangeRate == null)
             {
-                throw new AppException($"Exchange rate for Id: {id} doesn't exist.");
+                throw new AppException($"Exchange rate for Id: {model.Id} doesn't exist.");
             }
-            _currencyService.UpdateExchangeRate(id, keyword, value);
-            return Ok($"Exchange rate for Id: {id} has been updated successfully.");
+            exchangeRate.Id = model.Id;
+            exchangeRate.Keyword = model.Keyword.ToUpper();
+            exchangeRate.Value = model.Value;
+
+            _currencyService.UpdateExchangeRate(exchangeRate);
+            return Ok($"Exchange rate for Id: {model.Id} has been updated successfully.");
         }
 
         [HttpDelete]

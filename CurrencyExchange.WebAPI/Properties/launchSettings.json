@@ -18,7 +18,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DATABASE_NAME": "CurrencyExchangeDb",
-        "EXCHANGE_RATE_COLLECTION_NAME": "ExchangeRate"
+        "EXCHANGE_RATE_COLLECTION_NAME": "ExchangeRate",
+        "CONNECTION_STRING": "mongodb+srv://Sanjaya:tOxn9FJtODj3jGf7@cluster0.zo6ap.mongodb.net/CurrencyExchangeDb?retryWrites=true&w=majority"
       }
     },
     "IIS Express": {
@@ -28,7 +29,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "DATABASE_NAME": "CurrencyExchangeDb",
-        "EXCHANGE_RATE_COLLECTION_NAME": "ExchangeRate"
+        "EXCHANGE_RATE_COLLECTION_NAME": "ExchangeRate",
+        "CONNECTION_STRING": "mongodb+srv://Sanjaya:tOxn9FJtODj3jGf7@cluster0.zo6ap.mongodb.net/CurrencyExchangeDb?retryWrites=true&w=majority"
       }
     }
   }
